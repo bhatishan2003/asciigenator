@@ -1,16 +1,33 @@
 """
-Core functionality for ASCII art generation.
+Core functionality for ASCII art generation with color support.
 """
-
 from typing import Dict, List
 
-
 class ASCIIGenerator:
-    """ASCII Art Generator class."""
+    """ASCII Art Generator class with color support."""
 
     def __init__(self):
         """Initialize the generator with built-in fonts."""
         self.fonts = self._load_fonts()
+        self.colors = {
+            'black': '\033[30m',
+            'red': '\033[31m',
+            'green': '\033[32m',
+            'yellow': '\033[33m',
+            'blue': '\033[34m',
+            'magenta': '\033[35m',
+            'cyan': '\033[36m',
+            'white': '\033[37m',
+            'bright_black': '\033[90m',
+            'bright_red': '\033[91m',
+            'bright_green': '\033[92m',
+            'bright_yellow': '\033[93m',
+            'bright_blue': '\033[94m',
+            'bright_magenta': '\033[95m',
+            'bright_cyan': '\033[96m',
+            'bright_white': '\033[97m',
+        }
+        self.reset = '\033[0m'
 
     def _load_fonts(self) -> Dict[str, Dict[str, List[str]]]:
         """Load font definitions."""
@@ -26,7 +43,7 @@ class ASCIIGenerator:
                 "H": ["██╗  ██╗", "██║  ██║", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
                 "I": ["██╗", "██║", "██║", "██║", "██║", "╚═╝"],
                 "J": ["     ██╗", "     ██║", "     ██║", "██   ██║", "╚█████╔╝", " ╚════╝ "],
-                "K": ["██╗  ██╗", "██║ ██╔╝", "█████╔╝ ", "██╔═██╗ ", "██║  ██╗", "╚═╝  ╚═╝"],
+                "K": ["██╗ ██╗", "██║██╔╝", "█████╔╝ ", "██╔═██╗ ", "██║  ██╗", "╚═╝  ╚═╝"],
                 "L": ["██╗     ", "██║     ", "██║     ", "██║     ", "███████╗", "╚══════╝"],
                 "M": ["███╗   ███╗", "████╗ ████║", "██╔████╔██║", "██║╚██╔╝██║", "██║ ╚═╝ ██║", "╚═╝     ╚═╝"],
                 "N": ["███╗   ██╗", "████╗  ██║", "██╔██╗ ██║", "██║╚██╗██║", "██║ ╚████║", "╚═╝  ╚═══╝"],
@@ -36,62 +53,66 @@ class ASCIIGenerator:
                 "R": ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██║  ██║", "╚═╝  ╚═╝"],
                 "S": ["███████╗", "██╔════╝", "███████╗", "╚════██║", "███████║", "╚══════╝"],
                 "T": ["████████╗", "╚══██╔══╝", "   ██║   ", "   ██║   ", "   ██║   ", "   ╚═╝   "],
-                "U": ["██╗   ██╗", "██║   ██║", "██║   ██║", "██║   ██║", "╚██████╔╝", " ╚═════╝ "],
-                "V": ["██╗   ██╗", "██║   ██║", "██║   ██║", "╚██╗ ██╔╝", " ╚████╔╝ ", "  ╚═══╝  "],
+                "U": ["██╗  ██╗", "██║  ██║", "██║  ██║", "██║  ██║", "╚██████╔╝", " ╚═════╝ "],
+                "V": ["██╗  ██╗", "██║  ██║", "██║  ██║", "╚██╗██╔╝", " ╚████╔╝ ", "  ╚═══╝  "],
                 "W": ["██╗    ██╗", "██║    ██║", "██║ █╗ ██║", "██║███╗██║", "╚███╔███╔╝", " ╚══╝╚══╝ "],
                 "X": ["██╗  ██╗", "╚██╗██╔╝", " ╚███╔╝ ", " ██╔██╗ ", "██╔╝ ██╗", "╚═╝  ╚═╝"],
-                "Y": ["██╗   ██╗", "╚██╗ ██╔╝", " ╚████╔╝ ", "  ╚██╔╝  ", "   ██║   ", "   ╚═╝   "],
+                "Y": ["██╗  ██╗", "╚██╗██╔╝", " ╚████╔╝ ", "  ╚██╔╝  ", "   ██║   ", "   ╚═╝   "],
                 "Z": ["███████╗", "╚══███╔╝", "  ███╔╝ ", " ███╔╝  ", "███████╗", "╚══════╝"],
-                " ": ["   ", "   ", "   ", "   ", "   ", "   "],
+                " ": ["        ", "        ", "        ", "        ", "        ", "        "],
             },
             "simple": {
                 "A": [" * ", "* *", "***", "* *", "* *"],
                 "B": ["** ", "* *", "** ", "* *", "** "],
-                "C": [" **", "*  ", "*  ", "*  ", " **"],
+                "C": [" **", "* ", "* ", "* ", " **"],
                 "D": ["** ", "* *", "* *", "* *", "** "],
-                "E": ["***", "*  ", "** ", "*  ", "***"],
-                "F": ["***", "*  ", "** ", "*  ", "*  "],
-                "G": [" **", "*  ", "* *", "* *", " **"],
+                "E": ["***", "* ", "** ", "* ", "***"],
+                "F": ["***", "* ", "** ", "* ", "* "],
+                "G": [" **", "* ", "* *", "* *", " **"],
                 "H": ["* *", "* *", "***", "* *", "* *"],
                 "I": ["*", "*", "*", "*", "*"],
-                "J": ["  *", "  *", "  *", "* *", " * "],
-                "K": ["* *", "** ", "*  ", "** ", "* *"],
-                "L": ["*  ", "*  ", "*  ", "*  ", "***"],
+                "J": [" *", " *", " *", "* *", " * "],
+                "K": ["* *", "** ", "* ", "** ", "* *"],
+                "L": ["* ", "* ", "* ", "* ", "***"],
                 "M": ["* *", "***", "* *", "* *", "* *"],
                 "N": ["* *", "***", "***", "***", "* *"],
                 "O": [" * ", "* *", "* *", "* *", " * "],
-                "P": ["** ", "* *", "** ", "*  ", "*  "],
+                "P": ["** ", "* *", "** ", "* ", "* "],
                 "Q": [" * ", "* *", "* *", "***", " **"],
                 "R": ["** ", "* *", "** ", "** ", "* *"],
-                "S": [" **", "*  ", " * ", "  *", "** "],
+                "S": [" **", "* ", " * ", " *", "** "],
                 "T": ["***", " * ", " * ", " * ", " * "],
                 "U": ["* *", "* *", "* *", "* *", " * "],
                 "V": ["* *", "* *", "* *", " * ", " * "],
                 "W": ["* *", "* *", "* *", "***", "* *"],
                 "X": ["* *", " * ", " * ", " * ", "* *"],
                 "Y": ["* *", "* *", " * ", " * ", " * "],
-                "Z": ["***", "  *", " * ", "*  ", "***"],
-                " ": ["  ", "  ", "  ", "  ", "  "],
+                "Z": ["***", " *", " * ", "* ", "***"],
+                " ": [" ", " ", " ", " ", " "],
             },
         }
         return fonts
 
-    def generate(self, text: str, font: str = "simple") -> str:
+    def generate(self, text: str, font: str = "simple", color: str = None) -> str:
         """
         Generate ASCII art for the given text.
 
         Args:
             text (str): The text to convert to ASCII art
             font (str): The font to use ('simple' or 'block')
+            color (str): The color to use for the text
 
         Returns:
             str: The ASCII art representation of the text
 
         Raises:
-            ValueError: If the font is not available
+            ValueError: If the font is not available or color is invalid
         """
         if font not in self.fonts:
             raise ValueError(f"Font '{font}' not available. Available fonts: {list(self.fonts.keys())}")
+
+        if color and color not in self.colors:
+            raise ValueError(f"Color '{color}' not available. Available colors: {list(self.colors.keys())}")
 
         text = text.upper()
         font_data = self.fonts[font]
@@ -134,10 +155,17 @@ class ASCIIGenerator:
                         else:
                             line += " " * len(font_data[" "][0])
                     else:
-                        line += "   "  # Default spacing
+                        line += " "  # Default spacing
             lines.append(line.rstrip())
 
-        return "\n".join(lines)
+        result = "\n".join(lines)
+
+        # Apply color if specified
+        if color and result.strip():
+            color_code = self.colors[color]
+            result = f"{color_code}{result}{self.reset}"
+
+        return result
 
     def list_fonts(self) -> List[str]:
         """
@@ -148,19 +176,28 @@ class ASCIIGenerator:
         """
         return list(self.fonts.keys())
 
+    def list_colors(self) -> List[str]:
+        """
+        List all available colors.
+
+        Returns:
+            List[str]: List of available color names
+        """
+        return list(self.colors.keys())
+
 
 # Create a global instance
 _generator = ASCIIGenerator()
 
-
 # Public API functions
-def generate(text: str, font: str = "simple") -> str:
+def generate(text: str, font: str = "simple", color: str = None) -> str:
     """
     Generate ASCII art for the given text.
 
     Args:
         text (str): The text to convert to ASCII art
         font (str): The font to use (default: 'simple')
+        color (str): The color to use for the text
 
     Returns:
         str: The ASCII art representation of the text
@@ -168,13 +205,14 @@ def generate(text: str, font: str = "simple") -> str:
     Example:
         >>> import asciigen
         >>> print(asciigen.generate("Hello", font="simple"))
-        * *      ***   *    *    ***
-        * *       *    *    *    *  *
-        ***       *    *    *    *  *
-        * *       *    *    *    *  *
-        * *      ***    ****     ***
+        * *  *** * * *** * *
+        * * *   * *  *  * *
+        *** *** ***  *  ***
+        * * *   * *  *  * *
+        * * *** * * ***  *
+        >>> print(asciigen.generate("Hello", font="simple", color="red"))
     """
-    return _generator.generate(text, font)
+    return _generator.generate(text, font, color)
 
 
 def list_fonts() -> List[str]:
@@ -190,3 +228,18 @@ def list_fonts() -> List[str]:
         ['simple', 'block']
     """
     return _generator.list_fonts()
+
+
+def list_colors() -> List[str]:
+    """
+    List all available colors.
+
+    Returns:
+        List[str]: List of available color names
+
+    Example:
+        >>> import asciigen
+        >>> asciigen.list_colors()
+        ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'bright_black', 'bright_red', 'bright_green', 'bright_yellow', 'bright_blue', 'bright_magenta', 'bright_cyan', 'bright_white']
+    """
+    return _generator.list_colors()
