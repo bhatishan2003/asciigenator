@@ -168,7 +168,7 @@ cython_debug/
 .idea/
 .vscode/
 
-# Results and Logs
+# Results and logs
 results/
 mlruns
 wandb
