@@ -21,24 +21,24 @@ A lightweight Python library for generating ASCII art from text.
 
 ## Installation
 
-- Clone the repository:
+-   Clone the repository:
 
-  ```bash
-  git clone https://github.com/bhatishan2003/asciigen.git
-  cd asciigen
-  ```
+    ```bash
+    git clone https://github.com/bhatishan2003/asciigen.git
+    cd asciigen
+    ```
 
-- Install the package:
+-   Install the package:
 
-  ```bash
-  pip install .
-  ```
+    ```bash
+    pip install .
+    ```
 
-- For development (editable mode):
+-   For development (editable mode):
 
-  ```bash
-  pip install -e .
-  ```
+    ```bash
+    pip install -e .
+    ```
 
 ## Usage
 
@@ -83,6 +83,8 @@ print(asciigen.list_fonts())
 asciigen "Hello World"
 asciigen "Hello World" --font block
 asciigen --list-fonts
+asciigen "Hello World" --font block  --border "#"
+asciigen "Hello World"  --font block --color magenta
 ```
 
 ## Testing
@@ -95,23 +97,23 @@ pytest -v
 
 ## Development Notes
 
-- Pre-commit
+-   Pre-commit
 
-  We use pre-commit to automate linting of our codebase.
+    We use pre-commit to automate linting of our codebase.
 
-  - Install hooks:
-    ```bash
-    pre-commit install
-    ```
-  - Run Hooks manually (optional):
-    ```bash
-    pre-commit run --all-files
-    ```
+    -   Install hooks:
+        ```bash
+        pre-commit install
+        ```
+    -   Run Hooks manually (optional):
+        ```bash
+        pre-commit run --all-files
+        ```
 
-- Ruff:
+-   Ruff:
 
-  - Lint and format:
-    ```bash
-    ruff check --fix
-    ruff format
-    ```
+    -   Lint and format:
+        ```bash
+        ruff check --fix
+        ruff format
+        ```
