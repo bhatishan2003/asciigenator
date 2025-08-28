@@ -8,6 +8,7 @@ def main():
     parser.add_argument("text", nargs="?", help="Text to convert to ASCII art")
     parser.add_argument("-f", "--font", default="simple", help="Font to use (default: simple)")
     parser.add_argument("-c", "--color", help="Color to use for text")
+    parser.add_argument("-b", "--border", help="Character to use for border around the text")
     parser.add_argument("--list-fonts", action="store_true", help="List available fonts")
     parser.add_argument("--list-colors", action="store_true", help="List available colors")
 
@@ -30,7 +31,7 @@ def main():
         return
 
     try:
-        result = generate(args.text, args.font, args.color)
+        result = generate(args.text, args.font, args.color, args.border)
         print(result)
     except ValueError as e:
         print(f"Error: {e}", file=sys.stderr)

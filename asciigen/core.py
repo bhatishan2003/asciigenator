@@ -1,12 +1,12 @@
 """
-Core functionality for ASCII art generation with color support.
+Core functionality for ASCII art generation with color and border support.
 """
 
 from typing import Dict, List
 
 
 class ASCIIGenerator:
-    """ASCII Art Generator class with color support."""
+    """ASCII Art Generator class with color and border support."""
 
     def __init__(self):
         """Initialize the generator with built-in fonts."""
@@ -95,7 +95,78 @@ class ASCIIGenerator:
         }
         return fonts
 
-    def generate(self, text: str, font: str = "simple", color: str = None) -> str:
+    def _add_border(self, text: str, border_char: str, padding: int = 1) -> str:
+        """
+        Add a border around the text.
+
+        Args:
+            text (str): The ASCII art text
+            border_char (str): Character to use for the border
+            padding (int): Padding around the text inside the border
+
+        Returns:
+            str: Text with border added
+        """
+        if not text or not text.strip():
+            return text
+
+        # Split into lines and find the maximum width
+        lines = text.split("\n")
+        if not lines:
+            return text
+
+        # Remove ANSI color codes when calculating width
+        import re
+
+        ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
+
+        max_width = 0
+        clean_lines = []
+        for line in lines:
+            clean_line = ansi_escape.sub("", line)
+            clean_lines.append(clean_line)
+            max_width = max(max_width, len(clean_line))
+
+        if max_width == 0:
+            return text
+
+        # Calculate border dimensions
+        inner_width = max_width + (2 * padding)
+        border_width = inner_width + 2  # +2 for left and right border chars
+
+        # Create the border
+        top_border = border_char * border_width
+        bottom_border = border_char * border_width
+
+        # Create bordered content
+        bordered_lines = [top_border]
+
+        # Add empty padding lines at top if padding > 0
+        for _ in range(padding):
+            padding_line = border_char + " " * inner_width + border_char
+            bordered_lines.append(padding_line)
+
+        # Add content lines with padding
+        for i, line in enumerate(lines):
+            clean_line = clean_lines[i]
+            # Calculate padding needed to center the content
+            left_pad = " " * padding
+            right_pad_needed = inner_width - padding - len(clean_line)
+            right_pad = " " * max(0, right_pad_needed)
+
+            bordered_line = border_char + left_pad + line + right_pad + border_char
+            bordered_lines.append(bordered_line)
+
+        # Add empty padding lines at bottom if padding > 0
+        for _ in range(padding):
+            padding_line = border_char + " " * inner_width + border_char
+            bordered_lines.append(padding_line)
+
+        bordered_lines.append(bottom_border)
+
+        return "\n".join(bordered_lines)
+
+    def generate(self, text: str, font: str = "simple", color: str = None, border: str = None) -> str:
         """
         Generate ASCII art for the given text.
 
@@ -103,6 +174,7 @@ class ASCIIGenerator:
             text (str): The text to convert to ASCII art
             font (str): The font to use ('simple' or 'block')
             color (str): The color to use for the text
+            border (str): Character to use for border (None for no border)
 
         Returns:
             str: The ASCII art representation of the text
@@ -167,6 +239,10 @@ class ASCIIGenerator:
             color_code = self.colors[color]
             result = f"{color_code}{result}{self.reset}"
 
+        # Add border if specified
+        if border and result.strip():
+            result = self._add_border(result, border)
+
         return result
 
     def list_fonts(self) -> List[str]:
@@ -193,7 +269,7 @@ _generator = ASCIIGenerator()
 
 
 # Public API functions
-def generate(text: str, font: str = "simple", color: str = None) -> str:
+def generate(text: str, font: str = "simple", color: str = None, border: str = None) -> str:
     """
     Generate ASCII art for the given text.
 
@@ -201,6 +277,7 @@ def generate(text: str, font: str = "simple", color: str = None) -> str:
         text (str): The text to convert to ASCII art
         font (str): The font to use (default: 'simple')
         color (str): The color to use for the text
+        border (str): Character to use for border (None for no border)
 
     Returns:
         str: The ASCII art representation of the text
@@ -213,9 +290,9 @@ def generate(text: str, font: str = "simple", color: str = None) -> str:
         *** *** ***  *  ***
         * * *   * *  *  * *
         * * *** * * ***  *
-        >>> print(asciigen.generate("Hello", font="simple", color="red"))
+        >>> print(asciigen.generate("Hello", font="simple", color="red", border="#"))
     """
-    return _generator.generate(text, font, color)
+    return _generator.generate(text, font, color, border)
 
 
 def list_fonts() -> List[str]:
