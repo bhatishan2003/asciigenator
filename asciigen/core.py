@@ -3,6 +3,7 @@ Core functionality for ASCII art generation with color and border support.
 """
 
 from typing import Dict, List
+import re
 
 
 class ASCIIGenerator:
@@ -116,7 +117,6 @@ class ASCIIGenerator:
             return text
 
         # Remove ANSI color codes when calculating width
-        import re
 
         ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
