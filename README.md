@@ -5,17 +5,17 @@ A lightweight Python library for generating ASCII art from text.
 [![PyPI version](https://img.shields.io/pypi/v/asciigen.svg?color=blue)](https://pypi.org/project/asciigen/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/asciigen.svg)](https://pypi.org/project/asciigen/)
 [![License](https://img.shields.io/github/license/bhatishan2003/asciigen)](LICENSE)
-[![Tests](https://github.com/bhatishan2003/asciigen/actions/workflows/tests.yml/badge.svg)](https://github.com/bhatishan2003/asciigen/actions)
+[![Python application](https://github.com/bhatishan2003/asciigen/actions/workflows/python-app.yml/badge.svg)](https://github.com/bhatishan2003/asciigen/actions/workflows/python-app.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/bhatishan2003/asciigen)](https://codecov.io/gh/bhatishan2003/asciigen)
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Basic Python Usage](#basic-python-usage)
-  - [Command Line Usage](#command-line-usage)
-- [Testing](#testing)
-- [Development Notes](#development-notes)
+-   [Installation](#installation)
+-   [Usage](#usage)
+    -   [Basic Python Usage](#basic-python-usage)
+    -   [Command Line Usage](#command-line-usage)
+-   [Testing](#testing)
+-   [Development Notes](#development-notes)
 
 ---
 
