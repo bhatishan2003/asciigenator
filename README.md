@@ -1,21 +1,21 @@
-# ASCIIGEN <!-- omit in toc -->
+# asciigenator <!-- omit in toc -->
 
 A lightweight Python library for generating ASCII art from text.
 
-[![PyPI version](https://img.shields.io/pypi/v/asciigen.svg?color=blue)](https://pypi.org/project/asciigen/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/asciigen.svg)](https://pypi.org/project/asciigen/)
-[![License](https://img.shields.io/github/license/bhatishan2003/asciigen)](LICENSE)
-[![Python application](https://github.com/bhatishan2003/asciigen/actions/workflows/python-app.yml/badge.svg)](https://github.com/bhatishan2003/asciigen/actions/workflows/python-app.yml)
-[![Coverage](https://img.shields.io/codecov/c/github/bhatishan2003/asciigen)](https://codecov.io/gh/bhatishan2003/asciigen)
+[![PyPI version](https://img.shields.io/pypi/v/asciigenator.svg?color=blue)](https://pypi.org/project/asciigenator/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/asciigenator.svg)](https://pypi.org/project/asciigenator/)
+[![License](https://img.shields.io/github/license/bhatishan2003/asciigenator)](LICENSE)
+[![Python application](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-app.yml/badge.svg)](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-app.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/bhatishan2003/asciigenator)](https://codecov.io/gh/bhatishan2003/asciigenator)
 
 ## Table of Contents <!-- omit in toc -->
 
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Basic Python Usage](#basic-python-usage)
-    -   [Command Line Usage](#command-line-usage)
--   [Testing](#testing)
--   [Development Notes](#development-notes)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Python Usage](#basic-python-usage)
+  - [Command Line Usage](#command-line-usage)
+- [Testing](#testing)
+- [Development Notes](#development-notes)
 
 ---
 
@@ -24,8 +24,8 @@ A lightweight Python library for generating ASCII art from text.
 -   Clone the repository:
 
     ```bash
-    git clone https://github.com/bhatishan2003/asciigen.git
-    cd asciigen
+    git clone https://github.com/bhatishan2003/asciigenator.git
+    cd asciigenator
     ```
 
 -   Install the package:
@@ -45,11 +45,11 @@ A lightweight Python library for generating ASCII art from text.
 ### Basic Python Usage
 
 ```python
-import asciigen
+import asciigenator
 
 # Test simple font
 print("=== Simple Font ===")
-print(asciigen.generate("Hello", font="simple"))
+print(asciigenator.generate("Hello", font="simple"))
 
 # === Simple Font ===
 #  *   **  ** *** ***  ** *** *   *
@@ -59,7 +59,7 @@ print(asciigen.generate("Hello", font="simple"))
 # * * **   ** *** ***  ** *** *   *
 
 print("\n=== Block Font ===")
-print(asciigen.generate("Ishan", font="block"))
+print(asciigenator.generate("Ishan", font="block"))
 
 # === Block Font ===
 #   █
@@ -70,7 +70,7 @@ print(asciigen.generate("Ishan", font="block"))
 # █   █ ████   ████ █████ █████  ████ █████ █   █
 
 print("\n=== Available Fonts ===")
-print(asciigen.list_fonts())
+print(asciigenator.list_fonts())
 
 # === Available Fonts ===
 # ['block', 'simple']
@@ -80,11 +80,11 @@ print(asciigen.list_fonts())
 ### Command Line Usage
 
 ```bash
-asciigen "Hello World"
-asciigen "Hello World" --font block
-asciigen --list-fonts
-asciigen "Hello World" --font block  --border "#"
-asciigen "Hello World"  --font block --color magenta
+asciigenator "Hello World"
+asciigenator "Hello World" --font block
+asciigenator --list-fonts
+asciigenator "Hello World" --font block  --border "#"
+asciigenator "Hello World"  --font block --color magenta
 ```
 
 ## Testing

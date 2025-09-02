@@ -22,7 +22,7 @@ test_requires = read_requirements("requirements/requirements_test.txt")
 dev_requires = read_requirements("requirements/requirements_dev.txt")
 
 setup(
-    name="asciigen",
+    name="asciigenator",
     version="0.0.1",
     author="Ishan Bhat",
     author_email="ishan2003bhat@gmail.com",
@@ -55,7 +55,7 @@ setup(
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "asciigen=asciigen.cli:main",
+            "asciigenator=asciigenator.cli:main",
         ],
     },
     keywords="ascii art text generator cli",

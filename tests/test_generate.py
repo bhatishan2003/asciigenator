@@ -1,13 +1,13 @@
-import asciigen
+import asciigenator
 import subprocess
 import sys
 import os
 
-CLI_SCRIPT = os.path.join(os.path.dirname(__file__), "../asciigen/cli.py")
+CLI_SCRIPT = os.path.join(os.path.dirname(__file__), "../asciigenator/cli.py")
 
 
 def test_generate_simple_font():
-    result = asciigen.generate("Hello", font="simple")
+    result = asciigenator.generate("Hello", font="simple")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Optionally, check for a known pattern in the output
@@ -15,7 +15,7 @@ def test_generate_simple_font():
 
 
 def test_generate_block_font():
-    result = asciigen.generate("W1rld", font="block")
+    result = asciigenator.generate("W1rld", font="block")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Optionally, check for a known pattern in the output
@@ -23,13 +23,13 @@ def test_generate_block_font():
 
 
 def test_generate_empty_string():
-    result = asciigen.generate("", font="simple")
+    result = asciigenator.generate("", font="simple")
     assert result.strip() == ""
 
 
 def test_generate_with_color():
     """Test ASCII generation with color."""
-    result = asciigen.generate("Hello", font="simple", color="red")
+    result = asciigenator.generate("Hello", font="simple", color="red")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Check for ANSI color codes
@@ -40,7 +40,7 @@ def test_generate_with_color():
 
 def test_generate_with_border():
     """Test ASCII generation with border."""
-    result = asciigen.generate("Hi", font="simple", border="#")
+    result = asciigenator.generate("Hi", font="simple", border="#")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Check for border characters
@@ -54,7 +54,7 @@ def test_generate_with_border():
 
 def test_generate_with_color_and_border():
     """Test ASCII generation with both color and border."""
-    result = asciigen.generate("Test", font="simple", color="blue", border="*")
+    result = asciigenator.generate("Test", font="simple", color="blue", border="*")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Check for color codes
@@ -69,7 +69,7 @@ def test_generate_with_color_and_border():
 
 def test_generate_block_font_with_border():
     """Test block font with border."""
-    result = asciigen.generate("A", font="block", border="+")
+    result = asciigenator.generate("A", font="block", border="+")
     assert isinstance(result, str)
     assert len(result.strip()) > 0
     # Check for both block characters and border
@@ -84,7 +84,7 @@ def test_generate_block_font_with_border():
 def test_invalid_font():
     """Test error handling for invalid font."""
     try:
-        asciigen.generate("Hello", font="invalid_font")
+        asciigenator.generate("Hello", font="invalid_font")
         assert False, "Should have raised ValueError"
     except ValueError as e:
         assert "Font 'invalid_font' not available" in str(e)
@@ -93,7 +93,7 @@ def test_invalid_font():
 def test_invalid_color():
     """Test error handling for invalid color."""
     try:
-        asciigen.generate("Hello", font="simple", color="invalid_color")
+        asciigenator.generate("Hello", font="simple", color="invalid_color")
         assert False, "Should have raised ValueError"
     except ValueError as e:
         assert "Color 'invalid_color' not available" in str(e)
@@ -101,7 +101,7 @@ def test_invalid_color():
 
 def test_list_fonts():
     """Test listing available fonts."""
-    fonts = asciigen.list_fonts()
+    fonts = asciigenator.list_fonts()
     assert isinstance(fonts, list)
     assert "simple" in fonts
     assert "block" in fonts
@@ -110,7 +110,7 @@ def test_list_fonts():
 
 def test_list_colors():
     """Test listing available colors."""
-    colors = asciigen.list_colors()
+    colors = asciigenator.list_colors()
     assert isinstance(colors, list)
     assert "red" in colors
     assert "blue" in colors
@@ -123,7 +123,7 @@ def test_border_with_different_characters():
     test_chars = ["#", "*", "=", "+", "-", "|"]
 
     for border_char in test_chars:
-        result = asciigen.generate("X", font="simple", border=border_char)
+        result = asciigenator.generate("X", font="simple", border=border_char)
         assert isinstance(result, str)
         assert border_char in result
         lines = result.split("\n")
@@ -134,26 +134,26 @@ def test_border_with_different_characters():
 
 def test_empty_border():
     """Test that None border doesn't add border."""
-    result_no_border = asciigen.generate("Test", font="simple")
-    result_none_border = asciigen.generate("Test", font="simple", border=None)
+    result_no_border = asciigenator.generate("Test", font="simple")
+    result_none_border = asciigenator.generate("Test", font="simple", border=None)
     assert result_no_border == result_none_border
 
 
 def test_case_insensitive():
     """Test that text is converted to uppercase properly."""
-    result_lower = asciigen.generate("hello", font="simple")
-    result_upper = asciigen.generate("HELLO", font="simple")
+    result_lower = asciigenator.generate("hello", font="simple")
+    result_upper = asciigenator.generate("HELLO", font="simple")
     assert result_lower == result_upper
 
 
 def run_cli(args):
-    result = subprocess.run([sys.executable, "-m", "asciigen.cli"] + args, capture_output=True, text=True)
+    result = subprocess.run([sys.executable, "-m", "asciigenator.cli"] + args, capture_output=True, text=True)
     return result.stdout, result.stderr, result.returncode
 
 
 def test_list_fonts_api():
     """Test listing available fonts via API."""
-    fonts = asciigen.list_fonts()
+    fonts = asciigenator.list_fonts()
     assert isinstance(fonts, list)
     assert "simple" in fonts
     assert "block" in fonts
@@ -170,7 +170,7 @@ def test_list_fonts_cli():
 
 def test_generate_with_color_api():
     """Test ASCII generation with color via API."""
-    result = asciigen.generate("Hello", font="simple", color="red")
+    result = asciigenator.generate("Hello", font="simple", color="red")
     assert "\033[31m" in result
     assert "\033[0m" in result
     assert "*" in result
@@ -186,7 +186,7 @@ def test_generate_with_color_cli():
 
 def test_generate_with_border_api():
     """Test border generation via API."""
-    result = asciigen.generate("Hi", font="simple", border="#")
+    result = asciigenator.generate("Hi", font="simple", border="#")
     lines = result.split("\n")
     assert "#" in result
     assert all(char == "#" for char in lines[0])
