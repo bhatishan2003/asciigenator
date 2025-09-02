@@ -1,12 +1,25 @@
 from setuptools import setup, find_packages
+from pathlib import Path
+
+# Base directory of this file
+BASE_DIR = Path(__file__).resolve().parent
+
+
+# Helper function to read requirements from a file
+def read_requirements(filename):
+    path = BASE_DIR / filename
+    if not path.exists():
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
+
 
 # Read README.md for long description
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+long_description = (BASE_DIR / "README.md").read_text(encoding="utf-8")
 
-# Read requirements.txt for dependencies
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = fh.read().splitlines()
+# Optional test/dev requirements
+test_requires = read_requirements("requirements/requirements_test.txt")
+dev_requires = read_requirements("requirements/requirements_dev.txt")
 
 setup(
     name="asciigen",
@@ -17,7 +30,12 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    install_requires=requirements,
+    install_requires=[],  # no core requirements
+    extras_require={
+        "test": test_requires,
+        "dev": dev_requires,
+        "all": test_requires + dev_requires,
+    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
