@@ -1,4 +1,9 @@
 import asciigen
+import subprocess
+import sys
+import os
+
+CLI_SCRIPT = os.path.join(os.path.dirname(__file__), "../asciigen/cli.py")
 
 
 def test_generate_simple_font():
@@ -139,3 +144,59 @@ def test_case_insensitive():
     result_lower = asciigen.generate("hello", font="simple")
     result_upper = asciigen.generate("HELLO", font="simple")
     assert result_lower == result_upper
+
+
+def run_cli(args):
+    result = subprocess.run([sys.executable, "-m", "asciigen.cli"] + args, capture_output=True, text=True)
+    return result.stdout, result.stderr, result.returncode
+
+
+def test_list_fonts_api():
+    """Test listing available fonts via API."""
+    fonts = asciigen.list_fonts()
+    assert isinstance(fonts, list)
+    assert "simple" in fonts
+    assert "block" in fonts
+    assert len(fonts) >= 2
+
+
+def test_list_fonts_cli():
+    """Test listing available fonts via CLI."""
+    out, err, code = run_cli(["--list-fonts"])
+    assert code == 0
+    assert "simple" in out
+    assert "block" in out
+
+
+def test_generate_with_color_api():
+    """Test ASCII generation with color via API."""
+    result = asciigen.generate("Hello", font="simple", color="red")
+    assert "\033[31m" in result
+    assert "\033[0m" in result
+    assert "*" in result
+
+
+def test_generate_with_color_cli():
+    """Test ASCII generation with color via CLI."""
+    out, err, code = run_cli(["Hi", "-c", "red"])
+    assert code == 0
+    assert "\033[31m" in out
+    assert "\033[0m" in out
+
+
+def test_generate_with_border_api():
+    """Test border generation via API."""
+    result = asciigen.generate("Hi", font="simple", border="#")
+    lines = result.split("\n")
+    assert "#" in result
+    assert all(char == "#" for char in lines[0])
+    assert all(char == "#" for char in lines[-1])
+
+
+def test_generate_with_border_cli():
+    """Test border generation via CLI."""
+    out, err, code = run_cli(["Hi", "-b", "#"])
+    lines = out.splitlines()
+    assert "#" in out
+    assert "#" in lines[0]
+    assert "#" in lines[-1]
