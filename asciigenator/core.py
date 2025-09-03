@@ -7,7 +7,17 @@ import re
 
 
 class ASCIIGenerator:
-    """ASCII Art Generator class with full alphabet support."""
+    """
+    ASCII Art Generator class with full A-Z alphabet, space, colors, and border support.
+    Attributes
+    fonts : Dict[str, Dict[str, List[str]]]
+        Dictionary of available fonts. Each font maps characters (A-Z, space)
+        to their ASCII art representations.
+    colors : Dict[str, str]
+        Mapping of color names to ANSI escape codes for terminal color support.
+    reset : str
+        ANSI reset escape code used to clear formatting after applying colors.
+    """
 
     def __init__(self):
         self.fonts = self._load_fonts()
@@ -96,7 +106,20 @@ class ASCIIGenerator:
         return {"simple": simple, "block": block}
 
     def _add_border(self, text: str, border_char: str, padding: int = 1) -> str:
-        """Add border around ASCII text."""
+        """
+        Add a border around the ASCII art text.
+        Parameters
+        text : str
+            The ASCII art string to be bordered.
+        border_char : str
+            The character to use for the border.
+        padding : int, optional
+            Number of spaces to insert between the text and the border (default is 1).
+        Returns
+        str
+            ASCII art string with the border applied.
+        """
+
         if not text.strip():
             return text
         lines = text.split("\n")
@@ -124,6 +147,24 @@ class ASCIIGenerator:
         return "\n".join(bordered_lines)
 
     def generate(self, text: str, font: str = "simple", color: str = None, border: str = None) -> str:
+        """
+        Generate ASCII art for a given text with optional font, color, and border.
+        Parameters -
+        text : str
+            The input string to convert into ASCII art (only uppercase A-Z and spaces supported).
+        font : str, optional
+            Font to use for ASCII art ("simple" or "block"). Default is "simple".
+        color : str, optional
+            Color name for output (see list_colors()). Default is None (no color).
+        border : str, optional
+            Character to use for surrounding border. Default is None (no border).
+        Returns -
+        str
+            Formatted ASCII art string.
+        Raises -
+        ValueError
+            If the specified font or color is not available.
+        """
         if font not in self.fonts:
             raise ValueError(f"Font '{font}' not available.")
         if color and color not in self.colors:
@@ -154,9 +195,20 @@ class ASCIIGenerator:
         return result
 
     def list_fonts(self) -> List[str]:
+        """
+        Returns
+        List[str]
+            Names of available fonts.
+        """
         return list(self.fonts.keys())
 
     def list_colors(self) -> List[str]:
+        """
+        Returns
+        List[str]
+            Names of available colors.
+        """
+
         return list(self.colors.keys())
 
 
@@ -165,12 +217,35 @@ _generator = ASCIIGenerator()
 
 
 def generate(text: str, font: str = "simple", color: str = None, border: str = None) -> str:
+    """
+    Generate ASCII art text using the global ASCIIGenerator instance.
+    Parameters
+    text : str
+        Input string (A-Z and space supported).
+    font : str, optional
+        Font name ("simple" or "block"). Default is "simple".
+    color : str, optional
+        Output color (see list_colors()). Default is None.
+    border : str, optional
+        Border character. Default is None.
+    Returns -
+    str
+        Generated ASCII art string.
+    """
     return _generator.generate(text, font, color, border)
 
 
 def list_fonts() -> List[str]:
+    """ "
+    List[str]
+    Names of available fonts.
+    """
     return _generator.list_fonts()
 
 
 def list_colors() -> List[str]:
+    """ "
+    List[str]
+    Names of available colors.
+    """
     return _generator.list_colors()
