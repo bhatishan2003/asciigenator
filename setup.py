@@ -20,6 +20,7 @@ long_description = (BASE_DIR / "README.md").read_text(encoding="utf-8")
 # Optional test/dev requirements
 test_requires = read_requirements("requirements/requirements_test.txt")
 dev_requires = read_requirements("requirements/requirements_dev.txt")
+docs_requires = read_requirements("requirements/requirements_docs.txt")
 
 setup(
     name="asciigenator",
@@ -34,7 +35,8 @@ setup(
     extras_require={
         "test": test_requires,
         "dev": dev_requires,
-        "all": test_requires + dev_requires,
+        "docs": docs_requires,
+        "all": test_requires + dev_requires + docs_requires,
     },
     classifiers=[
         "Development Status :: 4 - Beta",
