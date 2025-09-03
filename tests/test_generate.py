@@ -200,3 +200,36 @@ def test_generate_with_border_cli():
     assert "#" in out
     assert "#" in lines[0]
     assert "#" in lines[-1]
+
+
+def test_list_colors_cli():
+    """Test listing available colors via CLI."""
+    out, err, code = run_cli(["--list-colors"])
+    assert code == 0
+    assert "Available colors:" in out
+    assert "red" in out
+    assert "blue" in out
+    assert "green" in out
+
+
+def test_no_arguments_shows_help():
+    """Test that running CLI with no arguments shows help."""
+    out, err, code = run_cli([])
+    assert code == 0
+    assert "usage:" in out or "Generate ASCII art from text" in out
+
+
+def test_cli_invalid_font_error():
+    """Test CLI error handling for invalid font."""
+    out, err, code = run_cli(["Test", "-f", "nonexistent_font"])
+    assert code == 1
+    assert "Error:" in err
+    assert "Font 'nonexistent_font' not available" in err
+
+
+def test_cli_invalid_color_error():
+    """Test CLI error handling for invalid color."""
+    out, err, code = run_cli(["Test", "-c", "nonexistent_color"])
+    assert code == 1
+    assert "Error:" in err
+    assert "Color 'nonexistent_color' not available" in err
