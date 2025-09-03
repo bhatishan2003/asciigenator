@@ -10,12 +10,11 @@ A lightweight Python library for generating ASCII art from text.
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Basic Python Usage](#basic-python-usage)
-  - [Command Line Usage](#command-line-usage)
-- [Testing](#testing)
-- [Development Notes](#development-notes)
+-   [Installation](#installation)
+-   [Usage](#usage)
+    -   [Basic Python Usage](#basic-python-usage)
+    -   [Command Line Usage](#command-line-usage)
+-   [Testing](#testing)
 
 ---
 
@@ -94,26 +93,3 @@ Run all tests:
 ```bash
 pytest -v
 ```
-
-## Development Notes
-
--   Pre-commit
-
-    We use pre-commit to automate linting of our codebase.
-
-    -   Install hooks:
-        ```bash
-        pre-commit install
-        ```
-    -   Run Hooks manually (optional):
-        ```bash
-        pre-commit run --all-files
-        ```
-
--   Ruff:
-
-    -   Lint and format:
-        ```bash
-        ruff check --fix
-        ruff format
-        ```
