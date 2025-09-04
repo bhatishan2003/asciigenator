@@ -25,3 +25,9 @@ exclude_patterns = []
 
 html_theme = "furo"
 # html_static_path = ["_static"]
+
+extensions = [
+    "sphinx.ext.autodoc",  # generate docs from docstrings
+    "sphinx.ext.napoleon",  # support Google/NumPy style docstrings
+    "sphinx.ext.viewcode",  # add links to highlighted source code
+]
