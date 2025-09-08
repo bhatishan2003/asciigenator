@@ -5,16 +5,17 @@ A lightweight Python library for generating ASCII art from text.
 [![PyPI version](https://img.shields.io/pypi/v/asciigenator.svg?color=blue)](https://pypi.org/project/asciigenator/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/asciigenator.svg)](https://pypi.org/project/asciigenator/)
 [![License](https://img.shields.io/github/license/bhatishan2003/asciigenator)](LICENSE)
-[![Python application](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-app.yml/badge.svg)](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-app.yml)
+[![Build and Deploy Sphinx Docs](https://github.com/bhatishan2003/asciigenator/actions/workflows/sphinx.yml/badge.svg)](https://github.com/bhatishan2003/asciigenator/actions/workflows/sphinx.yml)
+[![CI & Release](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-application.yml/badge.svg)](https://github.com/bhatishan2003/asciigenator/actions/workflows/python-application.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/bhatishan2003/asciigenator)](https://codecov.io/gh/bhatishan2003/asciigenator)
 
 ## Table of Contents <!-- omit in toc -->
 
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Basic Python Usage](#basic-python-usage)
-    -   [Command Line Usage](#command-line-usage)
--   [Testing](#testing)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Python Usage](#basic-python-usage)
+  - [Command Line Usage](#command-line-usage)
+- [Testing](#testing)
 
 ---
 
