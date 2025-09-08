@@ -101,7 +101,7 @@ bump-my-version bump show
 -   Push to git:
 
     ```bash
-    git push --tags
+    git push --follow-tags
     ```
 
 ## Release Notes
