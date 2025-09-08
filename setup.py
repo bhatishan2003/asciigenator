@@ -24,7 +24,7 @@ docs_requires = read_requirements("requirements/requirements_docs.txt")
 
 setup(
     name="asciigenator",
-    version="0.0.5",
+    version="0.0.6",
     author="Ishan Bhat",
     author_email="ishan2003bhat@gmail.com",
     description="A Python library for generating ASCII art from text",
