@@ -24,7 +24,7 @@ A lightweight Python library for generating ASCII art from text.
 -   From PyPi
 
     ```bash
-    pip install snakerun
+    pip install asciigenator
     ```
 
 -   Clone the repository:
