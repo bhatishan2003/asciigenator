@@ -21,6 +21,12 @@ A lightweight Python library for generating ASCII art from text.
 
 ## Installation
 
+-   From PyPi
+
+    ```bash
+    pip install snakerun
+    ```
+
 -   Clone the repository:
 
     ```bash
